@@ -1,6 +1,6 @@
 # expenses_app
 
-A new Flutter project.
+A simple app to log personal expenses made in a week, using Flutter.
 
 ## Getting Started
 
