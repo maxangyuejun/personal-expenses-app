@@ -1,6 +1,12 @@
-import 'package:expenses_app/transaction.dart';
+import 'dart:developer';
+
+import 'package:expenses_app/widgets/user_transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import './widgets/transaction_list.dart';
+import './widgets/new_transaction.dart';
+import './widgets/user_transaction.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,20 +29,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  final List<Transaction> transactions = [
-    Transaction(
-      id: "t1",
-      title: "New Shoes",
-      amount: 69.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: "t2",
-      title: "Weekly Groceries",
-      amount: 19.99,
-      date: DateTime.now(),
-    ),
-  ];
   // const MyHomePage({Key? key}) : super(key: key);
   String titleInput = '';
   String amountInput = '';
@@ -58,100 +50,7 @@ class MyHomePage extends StatelessWidget {
             ),
             elevation: 5,
           ),
-          Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(15),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: "Title",
-                    ),
-                    onChanged: (value) {
-                      titleInput = value;
-                    },
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(15),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: "Amount",
-                    ),
-                    onChanged: (value) {
-                      amountInput = value;
-                    },
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    print(titleInput);
-                    print(amountInput);
-                  },
-                  child: Text(
-                    "Add Transaction",
-                    style: TextStyle(
-                      color: Colors.orange[900],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Column(
-            children: transactions.map((tx) {
-              return Card(
-                // color: Colors.blue,
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 15.0,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.orange,
-                        ),
-                      ),
-                      padding: EdgeInsets.all(10),
-                      // color: Colors.orange,
-                      child: Text(
-                        "\$${tx.amount}", //string interpolation
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          fontFamily: 'Comic Sans MS',
-                          color: Colors.orange,
-                        ),
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          tx.title,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                        Text(
-                          DateFormat().format(tx.date),
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
-          ),
+          UserTransaction(),
         ],
       ),
     );
