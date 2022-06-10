@@ -21,7 +21,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.cyan,
+        accentColor: Colors.amber,
+        fontFamily: "Quicksand",
       ),
       home: MyHomePage(),
     );
@@ -95,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Card(
-              color: Colors.blue,
+              color: Theme.of(context).primaryColor,
               child: Container(
                 width: double.infinity,
                 child: Text("Chart!"),
