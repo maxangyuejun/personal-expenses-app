@@ -22,8 +22,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Personal Expenses',
       theme: ThemeData(
-          primarySwatch: Colors.cyan,
+          primarySwatch: Colors.green,
           accentColor: Colors.amber,
+          buttonColor: Colors.green,
+          // textTheme: ThemeData.light().textTheme.copyWith(
+          //       titleLarge: const TextStyle(
+          //         fontFamily: 'OpenSans',
+          //         fontWeight: FontWeight.bold,
+          //         fontSize: 18,
+          //       ),
+          //       button: const TextStyle(color: Colors.white),
+          //     ),
+          // title: TextStyle()),
+          buttonTheme: const ButtonThemeData(
+            buttonColor: Colors.green,
+            textTheme: ButtonTextTheme.primary,
+          ),
           fontFamily: "Quicksand",
           appBarTheme: const AppBarTheme(
             toolbarTextStyle: TextStyle(
@@ -78,12 +92,13 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String txTitle, double txAmount) {
+  void _addNewTransaction(
+      String txTitle, double txAmount, DateTime chosenDate) {
     final newTx = Transaction(
       id: DateTime.now().toString(),
       title: txTitle,
       amount: txAmount,
-      date: DateTime.now(),
+      date: chosenDate,
     );
     setState(() {
       _userTransaction.add(newTx);
@@ -102,6 +117,14 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransaction.removeWhere((element) {
+        return id == element.id;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Chart(_recentTransactions),
-            TransactionList(_userTransaction),
+            TransactionList(_userTransaction, _deleteTransaction),
           ],
         ),
       ),
